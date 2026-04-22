@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guard Owl — Business Pricing</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0efe9;
+  --t1:#1a1a18;--t2:#6b6b66;--t3:#9a9a94;
+  --bd:rgba(0,0,0,0.12);--bdh:rgba(0,0,0,0.22);
+  --r8:8px;--r12:12px;--font:-apple-system,'Segoe UI',sans-serif;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1c1c1a;--bg2:#252523;--bg3:#2e2e2b;
+  --t1:#f0efe9;--t2:#a0a09a;--t3:#6b6b66;
+  --bd:rgba(255,255,255,0.12);--bdh:rgba(255,255,255,0.22);
+}}
+body{font-family:var(--font);background:var(--bg3);color:var(--t1);min-height:100vh;padding:2rem 1rem 4rem}
+.page{max-width:940px;margin:0 auto}
+
+/* Logo */
+.logo-bar{display:flex;align-items:center;gap:10px;margin-bottom:2.5rem}
+.logo-mark{width:38px;height:38px;background:#1a1a18;border-radius:9px;display:flex;align-items:center;justify-content:center}
+.logo-mark svg{width:22px;height:22px;fill:white}
+.logo-text{font-size:16px;font-weight:500}
+
+/* Hero */
+.eyebrow{font-size:11px;font-weight:500;color:#378ADD;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.hero-title{font-size:30px;font-weight:500;line-height:1.2;margin-bottom:10px}
+.hero-sub{font-size:14px;color:var(--t2);line-height:1.75;max-width:620px;margin-bottom:2rem}
+.slbl{font-size:11px;font-weight:500;color:var(--t2);letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+
+/* Package grid — top 2 cards + full-width Package 3 */
+.pkg-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.pkg-full{margin-bottom:1.75rem}
+.pc{border:.5px solid var(--bd);border-radius:var(--r12);padding:1.25rem;cursor:pointer;background:var(--bg);transition:border-color .15s,box-shadow .15s;position:relative}
+.pc:hover{border-color:var(--bdh)}
+.pc.sel{border:2px solid #378ADD;box-shadow:0 0 0 3px rgba(55,138,221,.1)}
+.pc.sel .pn{color:#185FA5}
+.pc.combo.sel{border:2px solid #1D9E75;box-shadow:0 0 0 3px rgba(29,158,117,.1)}
+.pc.combo.sel .pn{color:#085041}
+.pnum{font-size:10px;font-weight:500;color:var(--t3);letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px}
+.pn{font-size:15px;font-weight:500;margin-bottom:5px}
+.pbadge{font-size:11px;padding:2px 9px;border-radius:20px;display:inline-block;margin-bottom:10px;font-weight:500}
+.b1{background:#E6F1FB;color:#0C447C}
+.b2{background:#EEEDFE;color:#3C3289}
+.b3{background:#E1F5EE;color:#085041}
+.ppr{font-size:12px;color:var(--t2);line-height:1.8;margin-bottom:10px}
+.pdiv{border:none;border-top:.5px solid var(--bd);margin:10px 0}
+.fl{list-style:none;display:flex;flex-direction:column;gap:5px}
+.fl li{font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+.fd{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px}
+.fb{background:#378ADD}.fp{background:#7F77DD}.fg{background:#1D9E75}.ft{background:#0F6E56}
+.ftag{font-size:9px;font-weight:500;padding:1px 5px;border-radius:8px;display:inline-block;margin-left:2px;vertical-align:middle;background:#EEEDFE;color:#534AB7}
+
+/* Package 3 full-width inner layout */
+.combo-inner{display:grid;grid-template-columns:auto 1fr 1fr 1fr;gap:20px;align-items:start}
+.combo-left{min-width:180px}
+.combo-col-lbl{font-size:10px;font-weight:500;color:#0F6E56;letter-spacing:.07em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:.5px solid rgba(29,158,117,.3)}
+.save-pill{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:#1D9E75;color:white;font-size:10px;font-weight:500;padding:2px 12px;border-radius:20px;white-space:nowrap}
+
+/* Inputs */
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.75rem}
+.iblock{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--r12);padding:1.1rem}
+.iblock.dim{opacity:.4;pointer-events:none}
+.iblbl{font-size:13px;font-weight:500;margin-bottom:2px}
+.ibsub{font-size:11px;color:var(--t3);margin-bottom:10px}
+.sr{display:flex;align-items:center;gap:12px}
+.sr input[type=range]{flex:1;height:4px;cursor:pointer}
+.send{font-size:11px;color:var(--t2);white-space:nowrap}
+.sv{font-size:20px;font-weight:500;min-width:80px;text-align:right}
+.sv span{font-size:12px;font-weight:400;color:var(--t2)}
+.cust-row{display:flex;align-items:center;gap:10px;margin-top:10px;padding:8px 12px;border:.5px solid var(--bd);border-radius:var(--r8);background:var(--bg2)}
+.cust-row label{font-size:12px;color:var(--t2);flex:1}
+.cust-row input{width:90px;font-size:13px;padding:4px 8px;border:.5px solid var(--bdh);border-radius:var(--r8);background:var(--bg);color:var(--t1);font-family:var(--font);outline:none}
+.cust-row input:focus{border-color:#378ADD}
+
+/* Modules */
+.msec{background:var(--bg);border:.5px solid var(--bd);border-radius:var(--r12);margin-bottom:1.75rem;overflow:hidden}
+.mhdr{padding:14px 16px;border-bottom:.5px solid var(--bd);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.mhtitle{font-size:14px;font-weight:500;margin-bottom:2px}
+.mhsub{font-size:12px;color:var(--t2)}
+.mhtot{font-size:12px;color:var(--t2);text-align:right;flex-shrink:0;font-weight:500}
+.mdis{padding:16px;font-size:13px;color:var(--t3);text-align:center;background:var(--bg2)}
+.cam-profiles{padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.cp-row{border:.5px solid var(--bd);border-radius:var(--r8);overflow:hidden}
+.cp-head{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--bg2);cursor:pointer;user-select:none}
+.cp-label{font-size:12px;font-weight:500;flex:1}
+.cp-tot{font-size:11px;font-weight:500;color:#534AB7;white-space:nowrap}
+.cp-icon{font-size:10px;color:var(--t3);transition:transform .2s;margin-left:4px}
+.cp-icon.open{transform:rotate(180deg)}
+.cp-mods{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:10px 12px}
+.cp-mods.collapsed{display:none}
+.mi{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;border:.5px solid var(--bd);border-radius:var(--r8);cursor:pointer;transition:border-color .15s,background .15s;gap:8px}
+.mi:hover{border-color:var(--bdh)}
+.mi.on{border-color:#7F77DD;background:#EEEDFE}
+.mi-left{display:flex;align-items:center;gap:7px;flex:1}
+.mck{width:15px;height:15px;border-radius:3px;border:.5px solid var(--bdh);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:background .15s,border-color .15s}
+.mi.on .mck{background:#7F77DD;border-color:#7F77DD}
+.mck-in{width:7px;height:7px;border-radius:2px;background:white;display:none}
+.mi.on .mck-in{display:block}
+.mlbl{font-size:11px;color:var(--t2);line-height:1.4}
+.mi.on .mlbl{color:#3C3289}
+.mpt{font-size:10px;font-weight:500;color:var(--t3);white-space:nowrap;flex-shrink:0}
+.mi.on .mpt{color:#534AB7}
+.mnote{padding:10px 16px;border-top:.5px solid var(--bd);font-size:11px;color:var(--t3);line-height:1.6}
+
+/* Summary */
+.summary{background:var(--bg2);border-radius:var(--r12);padding:1.4rem;border:.5px solid var(--bd);margin-bottom:1.5rem}
+.s-row{display:flex;justify-content:space-between;font-size:14px;padding:5px 0;color:var(--t2)}
+.s-row.hid{display:none}
+.s-row.ind{padding-left:14px;font-size:13px}
+.sdiv{border:none;border-top:.5px solid var(--bd);margin:12px 0}
+.stot{display:grid;grid-template-columns:1fr 1fr;margin-top:4px}
+.stc{padding:8px 0}
+.stc:first-child{border-right:.5px solid var(--bd);padding-right:20px}
+.stc:last-child{padding-left:20px}
+.stl{font-size:11px;color:var(--t3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.stv{font-size:26px;font-weight:500;color:var(--t1)}
+.stv.ann{color:#185FA5;font-size:32px}
+.snote{font-size:11px;color:var(--t3);margin-top:8px;text-align:right}
+.ssave{font-size:12px;color:#0F6E56;font-weight:500;margin-top:6px;text-align:right}
+.ssave.hid{display:none}
+
+.footer{text-align:center;margin-top:3rem;font-size:12px;color:var(--t3)}
+.footer a{color:#378ADD;text-decoration:none}
+
+@media(max-width:640px){
+  .pkg-top{grid-template-columns:1fr}
+  .combo-inner{grid-template-columns:1fr}
+  .igrid{grid-template-columns:1fr}
+  .cp-mods{grid-template-columns:1fr 1fr}
+  .stot{grid-template-columns:1fr}
+  .stc:first-child{border-right:none;border-bottom:.5px solid var(--bd);padding-right:0;padding-bottom:10px}
+  .stc:last-child{padding-left:0;padding-top:10px}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="logo-bar">
+  <div class="logo-mark">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L4 6v6c0 5.25 3.5 10.15 8 11.35C16.5 22.15 20 17.25 20 12V6L12 2z"/></svg>
+  </div>
+  <span class="logo-text">Guard Owl</span>
+</div>
+
+<div class="eyebrow">Business pricing</div>
+<div class="hero-title">AI-powered physical security for your business</div>
+<div class="hero-sub">Choose the package that fits your operation — AI Security Hub, AI Camera Intelligence, or both unified into one platform. Priced per site and per camera, with modular AI detection add-ons configurable per camera.</div>
+
+<p class="slbl">Choose a package</p>
+
+<!-- Top 2 packages -->
+<div class="pkg-top">
+  <div class="pc sel" onclick="selPkg('ops',this)">
+    <div class="pnum">Package 1</div>
+    <div class="pn">AI Security Hub</div>
+    <span class="pbadge b1">Operations</span>
+    <div class="ppr">$399 / site / month<br><span style="font-size:10px;color:var(--t3)">flat rate, any site size</span></div>
+    <hr class="pdiv">
+    <ul class="fl">
+      <li><span class="fd fb"></span>Physical security operations platform</li>
+      <li><span class="fd fb"></span>AI-powered incident documentation</li>
+      <li><span class="fd fb"></span>Real-time alerts &amp; notifications</li>
+      <li><span class="fd fb"></span>Multi-site management dashboard</li>
+      <li><span class="fd fb"></span>Compliance &amp; audit reporting</li>
+      <li><span class="fd fb"></span>Client transparency portal</li>
+      <li><span class="fd fb"></span>24/7 operations center</li>
+      <li><span class="fd fb"></span>Digital incident logs &amp; audit trail</li>
+    </ul>
+  </div>
+
+  <div class="pc" onclick="selPkg('cam',this)">
+    <div class="pnum">Package 2</div>
+    <div class="pn">AI Camera Intelligence</div>
+    <span class="pbadge b2">Cameras</span>
+    <div class="ppr">$199 / site / month<br>+ $22 / camera / month<br>+ AI detection modules</div>
+    <hr class="pdiv">
+    <ul class="fl">
+      <li><span class="fd fp"></span>Camera-agnostic AI integration</li>
+      <li><span class="fd fp"></span>Real-time incident detection <span class="ftag">AI</span></li>
+      <li><span class="fd fp"></span>Automated AI dispatch alerts <span class="ftag">AI</span></li>
+      <li><span class="fd fp"></span>Motion &amp; perimeter detection included</li>
+      <li><span class="fd fp"></span>Multi-camera unified dashboard</li>
+      <li><span class="fd fp"></span>Clip &amp; evidence management</li>
+      <li><span class="fd fp"></span>Instant alert &amp; notification system</li>
+      <li><span class="fd fp"></span>Per-camera AI module add-ons</li>
+    </ul>
+  </div>
+</div>
+
+<!-- Package 3 full width -->
+<div class="pkg-full">
+  <div class="pc combo" onclick="selPkg('both',this)">
+    <div class="save-pill">Best value — save 20%</div>
+    <div class="combo-inner">
+      <div class="combo-left">
+        <div class="pnum">Package 3</div>
+        <div class="pn">Complete Security Platform</div>
+        <span class="pbadge b3">Hub + Cameras</span>
+        <div class="ppr" style="margin-top:4px">Packages 1 + 2 combined<br><span style="font-size:10px;color:#0F6E56;font-weight:500">20% bundle discount applied</span></div>
+      </div>
+      <div>
+        <div class="combo-col-lbl">AI Security Hub included</div>
+        <ul class="fl">
+          <li><span class="fd fg"></span>Physical security operations platform</li>
+          <li><span class="fd fg"></span>AI-powered incident documentation</li>
+          <li><span class="fd fg"></span>Multi-site management dashboard</li>
+          <li><span class="fd fg"></span>Compliance &amp; audit reporting</li>
+          <li><span class="fd fg"></span>Client transparency portal</li>
+          <li><span class="fd fg"></span>24/7 operations center</li>
+        </ul>
+      </div>
+      <div>
+        <div class="combo-col-lbl">AI Camera Intelligence included</div>
+        <ul class="fl">
+          <li><span class="fd fg"></span>Camera-agnostic AI integration</li>
+          <li><span class="fd fg"></span>Real-time incident detection <span class="ftag">AI</span></li>
+          <li><span class="fd fg"></span>Automated AI dispatch alerts <span class="ftag">AI</span></li>
+          <li><span class="fd fg"></span>Motion &amp; perimeter detection included</li>
+          <li><span class="fd fg"></span>Clip &amp; evidence management</li>
+          <li><span class="fd fg"></span>Per-camera AI module add-ons</li>
+        </ul>
+      </div>
+      <div>
+        <div class="combo-col-lbl">Unified platform advantages</div>
+        <ul class="fl">
+          <li><span class="fd ft"></span>Cameras trigger guard dispatch automatically</li>
+          <li><span class="fd ft"></span>Unified incident timeline (physical + digital)</li>
+          <li><span class="fd ft"></span>AI correlates camera events with field reports</li>
+          <li><span class="fd ft"></span>Single dashboard for all security operations</li>
+          <li><span class="fd ft"></span>Cross-platform compliance reporting</li>
+          <li><span class="fd ft"></span>Dedicated success manager</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p class="slbl">Configure your deployment</p>
+<div class="igrid">
+  <div class="iblock">
+    <div class="iblbl">Number of sites</div>
+    <div class="ibsub">Each location, building, or property</div>
+    <div class="sr">
+      <span class="send">1</span>
+      <input type="range" min="1" max="50" value="1" step="1" id="siteSlider" oninput="syncSites()" style="accent-color:#378ADD">
+      <span class="send">50</span>
+      <div class="sv"><span id="siteCount">1</span> <span>site</span></div>
+    </div>
+    <div class="cust-row">
+      <label>More than 50 sites? Enter count:</label>
+      <input type="number" id="customSites" min="1" placeholder="e.g. 75" oninput="syncCustomSites()">
+    </div>
+  </div>
+  <div class="iblock" id="cam-block">
+    <div class="iblbl">Cameras per site</div>
+    <div class="ibsub">Average number of cameras per location</div>
+    <div class="sr">
+      <span class="send">1</span>
+      <input type="range" min="1" max="50" value="4" step="1" id="camSlider" oninput="rebuildProfiles()" style="accent-color:#7F77DD">
+      <span class="send">50</span>
+      <div class="sv"><span id="camCount">4</span> <span>cams</span></div>
+    </div>
+    <div style="margin-top:8px;font-size:11px;color:var(--t3)">Total: <span id="totalCams">4</span> cameras across all sites</div>
+  </div>
+</div>
+
+<!-- AI Detection Modules -->
+<div class="msec">
+  <div class="mhdr">
+    <div>
+      <div class="mhtitle">AI detection modules</div>
+      <div class="mhsub">Each camera is individually configured. Modules are priced per camera per month. Motion &amp; perimeter detection is included in the base camera fee.</div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0">
+      <div class="mhtot" id="mod-summary">$0 / mo in modules</div>
+      <div style="display:flex;gap:6px" id="mod-bulk-btns" style="display:none">
+        <button onclick="bulkMods(true)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:.5px solid var(--bdh);background:var(--bg2);color:var(--t2);cursor:pointer;font-family:var(--font);transition:all .15s" onmouseover="this.style.borderColor='#7F77DD';this.style.color='#3C3289'" onmouseout="this.style.borderColor='var(--bdh)';this.style.color='var(--t2)'">Add all modules</button>
+        <button onclick="bulkMods(false)" style="font-size:11px;padding:4px 10px;border-radius:20px;border:.5px solid var(--bdh);background:var(--bg2);color:var(--t2);cursor:pointer;font-family:var(--font);transition:all .15s" onmouseover="this.style.borderColor='var(--bdh)';this.style.color='var(--t1)'" onmouseout="this.style.borderColor='var(--bdh)';this.style.color='var(--t2)'">Clear all</button>
+      </div>
+    </div>
+  </div>
+  <div id="mod-body">
+    <div class="mdis" id="mod-dis">Select Package 2 or Package 3 to configure AI detection modules per camera.</div>
+    <div class="cam-profiles" id="profiles-wrap" style="display:none"></div>
+  </div>
+  <div class="mnote" id="mod-note" style="display:none">Modules apply per individual camera. The summary estimates total module cost by averaging your configured profiles across the full deployment. Exact per-camera configuration is finalized during onboarding.</div>
+</div>
+
+<!-- Summary -->
+<div class="summary">
+  <div class="s-row" id="r-hub"><span>AI Security Hub — <span id="r-hub-sites">1</span> site(s) × $399</span><span id="r-hub-total">$399 / mo</span></div>
+  <div class="s-row hid" id="r-cam-base"><span>Camera platform — <span id="r-cam-sites">1</span> site(s) × $199</span><span id="r-cam-base-total">$199 / mo</span></div>
+  <div class="s-row hid ind" id="r-cam"><span>Base cameras — <span id="r-cam-count">4</span> cams × $22</span><span id="r-cam-total">$88 / mo</span></div>
+  <div class="s-row hid ind" id="r-mods"><span>AI modules — <span id="r-mods-detail">—</span></span><span id="r-mods-total">$0 / mo</span></div>
+  <div class="s-row hid" id="r-disc"><span style="color:#0F6E56">Bundle discount (20% off)</span><span id="r-disc-val" style="color:#0F6E56">-$0</span></div>
+  <hr class="sdiv">
+  <div class="stot">
+    <div class="stc">
+      <div class="stl">Monthly total</div>
+      <div class="stv" id="s-monthly">$399</div>
+    </div>
+    <div class="stc">
+      <div class="stl">Annual contract value</div>
+      <div class="stv ann" id="s-annual">$4,788</div>
+    </div>
+  </div>
+  <div class="snote" id="s-note">Package 1 · 1 site</div>
+  <div class="ssave hid" id="s-save"></div>
+</div>
+
+<div class="footer">
+  <a href="https://guardowlco.com" target="_blank">guardowlco.com</a> · <a href="https://guardowlco.com/demo" target="_blank">Book a demo</a>
+</div>
+
+</div>
+<script>
+const MODS=[
+  {key:'gun',label:'Gun & weapon detection',price:5},
+  {key:'lpr',label:'License plate recognition',price:4},
+  {key:'remote',label:'Remote monitoring (AI 24/7)',price:15},
+  {key:'slip',label:'Slip & fall detection',price:3},
+  {key:'loiter',label:'Loitering & crowd detection',price:3},
+  {key:'face',label:'Facial recognition',price:5},
+  {key:'smoke',label:'Smoke & fire detection',price:2},
+  {key:'behavior',label:'Behavioral anomaly analysis',price:4},
+  {key:'vehicle',label:'Vehicle detection & tracking',price:3}
+];
+
+let curPkg='ops';
+let useCustomSites=false;
+let profileMods={};
+
+function getSites(){
+  if(useCustomSites){const v=parseInt(document.getElementById('customSites').value);return v>0?v:parseInt(document.getElementById('siteSlider').value);}
+  return parseInt(document.getElementById('siteSlider').value);
+}
+function getCams(){return parseInt(document.getElementById('camSlider').value);}
+function hasCam(){return curPkg==='cam'||curPkg==='both';}
+
+function selPkg(pkg,el){
+  curPkg=pkg;
+  document.querySelectorAll('.pc').forEach(c=>c.classList.remove('sel'));
+  el.classList.add('sel');
+  const cam=hasCam();
+  document.getElementById('cam-block').classList.toggle('dim',!cam);
+  document.getElementById('mod-dis').style.display=cam?'none':'block';
+  document.getElementById('profiles-wrap').style.display=cam?'flex':'none';
+  document.getElementById('mod-note').style.display=cam?'block':'none';
+  document.getElementById('mod-bulk-btns').style.display=cam?'flex':'none';
+  if(cam)rebuildProfiles();
+  else upd();
+}
+
+function bulkMods(addAll){
+  const sites=getSites();
+  const cams=getCams();
+  const MAX_SITES=Math.min(sites,5);
+  const MAX_CAMS=Math.min(cams,8);
+  for(let s=0;s<MAX_SITES;s++){
+    for(let c=0;c<MAX_CAMS;c++){
+      const key=getProfileKey(s,c);
+      if(!profileMods[key])profileMods[key]={};
+      MODS.forEach(m=>{profileMods[key][m.key]=addAll;});
+      const cost=getModCostForProfile(key);
+      const totEl=document.getElementById('cp-tot-'+s+'-'+c);
+      if(totEl)totEl.textContent=cost>0?'$'+cost+'/cam/mo':'No modules';
+      const modsEl=document.getElementById('cp-mods-'+s+'-'+c);
+      if(modsEl){
+        modsEl.querySelectorAll('.mi').forEach((mi,i)=>{
+          mi.classList.toggle('on',addAll);
+        });
+      }
+    }
+  }
+  upd();
+}
+
+function syncSites(){
+  useCustomSites=false;
+  document.getElementById('customSites').value='';
+  rebuildProfiles();
+}
+function syncCustomSites(){
+  const v=parseInt(document.getElementById('customSites').value);
+  useCustomSites=!!(v&&v>0);
+  if(useCustomSites)document.getElementById('siteSlider').value=Math.min(v,50);
+  rebuildProfiles();
+}
+
+function getProfileKey(s,c){return 's'+s+'c'+c;}
+
+function rebuildProfiles(){
+  const sites=getSites();
+  const cams=getCams();
+  document.getElementById('siteCount').textContent=sites;
+  document.getElementById('camCount').textContent=cams;
+  document.getElementById('totalCams').textContent=(sites*cams).toLocaleString();
+  if(!hasCam()){upd();return;}
+  const wrap=document.getElementById('profiles-wrap');
+  wrap.style.flexDirection='column';
+  wrap.style.gap='8px';
+  wrap.innerHTML='';
+  const MAX_SITES=Math.min(sites,5);
+  const MAX_CAMS=Math.min(cams,8);
+  for(let s=0;s<MAX_SITES;s++){
+    const siteLabel=sites===1?'Your site':'Site '+(s+1);
+    for(let c=0;c<MAX_CAMS;c++){
+      const key=getProfileKey(s,c);
+      if(!profileMods[key])profileMods[key]={};
+      const modCost=getModCostForProfile(key);
+      const row=document.createElement('div');
+      row.className='cp-row';
+      row.innerHTML=`<div class="cp-head" onclick="toggleProfile('cp-mods-${s}-${c}',this)">
+        <span class="cp-label">${siteLabel} — Camera ${c+1}</span>
+        <span class="cp-tot" id="cp-tot-${s}-${c}">${modCost>0?'$'+modCost+'/cam/mo':'No modules'}</span>
+        <span class="cp-icon" id="cp-icon-${s}-${c}">▼</span>
+      </div>
+      <div class="cp-mods collapsed" id="cp-mods-${s}-${c}">${buildModGrid(key,s,c)}</div>`;
+      wrap.appendChild(row);
+    }
+    if(cams>MAX_CAMS){
+      const note=document.createElement('div');
+      note.style.cssText='font-size:11px;color:var(--t3);padding:2px 2px 6px';
+      note.textContent='Showing first '+MAX_CAMS+' of '+cams+' cameras for '+(sites===1?'your site':'Site '+(s+1))+'. Exact per-camera config finalized during onboarding.';
+      wrap.appendChild(note);
+    }
+  }
+  if(sites>MAX_SITES){
+    const note=document.createElement('div');
+    note.style.cssText='font-size:11px;color:var(--t3);padding:2px 2px 6px';
+    note.textContent='Showing first '+MAX_SITES+' of '+sites+' sites. Module selection serves as a representative profile — exact per-camera config is set during onboarding.';
+    wrap.appendChild(note);
+  }
+  upd();
+}
+
+function buildModGrid(key,s,c){
+  return MODS.map(m=>{
+    const on=profileMods[key]&&profileMods[key][m.key]?'on':'';
+    return `<div class="mi ${on}" onclick="toggleMod(this,'${key}','${m.key}',${m.price},${s},${c})">
+      <div class="mi-left"><div class="mck"><div class="mck-in"></div></div><div class="mlbl">${m.label}</div></div>
+      <div class="mpt">$${m.price}/mo</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleProfile(id,headEl){
+  const el=document.getElementById(id);
+  const icon=headEl.querySelector('.cp-icon');
+  const isOpen=!el.classList.contains('collapsed');
+  el.classList.toggle('collapsed',isOpen);
+  icon.classList.toggle('open',!isOpen);
+}
+
+function toggleMod(el,key,modKey,price,s,c){
+  el.classList.toggle('on');
+  if(!profileMods[key])profileMods[key]={};
+  profileMods[key][modKey]=el.classList.contains('on');
+  const cost=getModCostForProfile(key);
+  document.getElementById('cp-tot-'+s+'-'+c).textContent=cost>0?'$'+cost+'/cam/mo':'No modules';
+  upd();
+}
+
+function getModCostForProfile(key){
+  let t=0;
+  MODS.forEach(m=>{if(profileMods[key]&&profileMods[key][m.key])t+=m.price;});
+  return t;
+}
+
+function calcTotalModCost(){
+  const sites=getSites();
+  const cams=getCams();
+  const MAX_SITES=Math.min(sites,5);
+  const MAX_CAMS=Math.min(cams,8);
+  let profileTotal=0,profileCount=0;
+  for(let s=0;s<MAX_SITES;s++){
+    for(let c=0;c<MAX_CAMS;c++){
+      profileTotal+=getModCostForProfile(getProfileKey(s,c));
+      profileCount++;
+    }
+  }
+  const avg=profileCount>0?profileTotal/profileCount:0;
+  return Math.round(avg*(sites*cams));
+}
+
+function fmt(n){return'$'+Math.round(n).toLocaleString();}
+
+function upd(){
+  const sites=getSites();
+  const cams=getCams();
+  const totalCams=sites*cams;
+  document.getElementById('siteCount').textContent=sites;
+  document.getElementById('camCount').textContent=cams;
+  document.getElementById('totalCams').textContent=totalCams.toLocaleString();
+
+  const hubCost=sites*399;
+  const camBase=sites*199;
+  const camCost=totalCams*22;
+  const modCost=hasCam()?calcTotalModCost():0;
+  const rawBoth=hubCost+camBase+camCost+modCost;
+  const disc=Math.round(rawBoth*0.20);
+  const bothTotal=rawBoth-disc;
+
+  document.getElementById('r-hub').classList.toggle('hid',curPkg==='cam');
+  document.getElementById('r-cam-base').classList.toggle('hid',curPkg==='ops');
+  document.getElementById('r-cam').classList.toggle('hid',curPkg==='ops');
+  document.getElementById('r-mods').classList.toggle('hid',curPkg==='ops'||modCost===0);
+  document.getElementById('r-disc').classList.toggle('hid',curPkg!=='both');
+
+  document.getElementById('r-hub-sites').textContent=sites;
+  document.getElementById('r-hub-total').textContent=fmt(hubCost)+' / mo';
+  document.getElementById('r-cam-sites').textContent=sites;
+  document.getElementById('r-cam-base-total').textContent=fmt(camBase)+' / mo';
+  document.getElementById('r-cam-count').textContent=totalCams.toLocaleString();
+  document.getElementById('r-cam-total').textContent=fmt(camCost)+' / mo';
+  document.getElementById('r-mods-detail').textContent=totalCams.toLocaleString()+' cams (avg modules)';
+  document.getElementById('r-mods-total').textContent=fmt(modCost)+' / mo';
+  document.getElementById('r-disc-val').textContent='-'+fmt(disc);
+  document.getElementById('mod-summary').textContent=modCost>0?fmt(modCost)+' / mo in modules':'$0 / mo in modules';
+
+  let monthly=0;
+  if(curPkg==='ops'){
+    monthly=hubCost;
+    document.getElementById('s-note').textContent='Package 1 · '+sites+' site'+(sites>1?'s':'');
+    document.getElementById('s-save').classList.add('hid');
+  } else if(curPkg==='cam'){
+    monthly=camBase+camCost+modCost;
+    document.getElementById('s-note').textContent='Package 2 · '+sites+' site'+(sites>1?'s':'')+' · '+totalCams+' cameras';
+    document.getElementById('s-save').classList.add('hid');
+  } else {
+    monthly=bothTotal;
+    document.getElementById('s-note').textContent='Package 3 · '+sites+' site'+(sites>1?'s':'')+' · '+totalCams+' cameras';
+    document.getElementById('s-save').textContent='Saving '+fmt(disc)+'/mo ('+fmt(disc*12)+'/year) vs. buying separately';
+    document.getElementById('s-save').classList.remove('hid');
+  }
+  document.getElementById('s-monthly').textContent=fmt(monthly);
+  document.getElementById('s-annual').textContent=fmt(monthly*12);
+}
+
+// Init
+document.getElementById('cam-block').classList.add('dim');
+upd();
+</script>
+</body>
+</html>
